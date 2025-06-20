@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Simulasi Logika Proposisi</title>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+        <h1>Aplikasi Voting Logika Proposisi</h1>
+        <div id="home">
+            <button onclick="showCreateRoom()">Buat Room</button>
+            <button onclick="showJoinRoom()">Gabung Room</button>
+        </div>
+        </div>
+
+        <div id="createRoom" class="hidden">
+            <h2>Buat Room</h2>
+            <input type="text" id="roomName" placeholder="Masukkan Nama Room">
+            <button onclick="createRoom()">Mulai Room</button>
+        </div>
+
+        <div id="joinRoom" class="hidden">
+            <h2>Gabung Room</h2>
+            <input type="text" id="roomId" placeholder="Masukkan Room ID">
+            <input type="text" id="participantName" placeholder="Nama atau Anonymous">
+            <button onclick="joinRoom()">Gabung</button>
+        </div>
+
+        <div id="adminRoom" class="hidden">
+            <h2>Room Admin</h2>
+            <div id="participantsList"></div>
+            <textarea id="argument" placeholder="Tulis argumen..."></textarea>
+            <select id="logicType">
+                <option value="AND">Konjungsi (AND)</option>
+                <option value="OR">Disjungsi (OR)</option>
+            </select>
+            <button onclick="sendArgument()">Kirim Argumen</button>
+            <button onclick="showResults()">Tampilkan Hasil</button>
+        </div>
+
+        <div id="participantRoom" class="hidden">
+            <h2>Room Peserta</h2>
+            <div id="argumentDisplay"></div>
+            <button onclick="vote('agree')">Setuju</button>
+            <button onclick="vote('disagree')">Tidak Setuju</button>
+        </div>
+
+        <div id="results" class="hidden">
+            <h2>Hasil Voting</h2>
+            <div id="resultsDisplay"></div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
