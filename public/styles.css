@@ -3,22 +3,30 @@ body {
     font-family: Arial, sans-serif;
     background-image: url(BackgroundGede.jpg);
     background-position: center;
-    background-size: contain;
+    background-size: cover;
+    background-attachment: scroll;
     background-repeat: no-repeat;
     color: rgb(1, 7, 7)    ;
     margin: 0;
-    padding: 250px;
+    padding: 300px;
 }
 
 .container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 600px;
     text-align: center;
     color: aliceblue;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     margin: auto;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(10, 10, 10, 0.659);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    line-height: 1.6;
 }
 
 .hidden {
