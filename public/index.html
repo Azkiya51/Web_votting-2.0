@@ -9,8 +9,8 @@
         <div class="wrapper">
         <h1>Aplikasi Voting </h1>
         <div id="home">
-            <button onclick="showCreateRoom()">Buat Room</button>
-            <button onclick="showJoinRoom()">Gabung Room</button>
+            <button onclick="showCreate()">Buat Room</button>
+            <button onclick="showJoin()">Gabung Room</button>
         </div>
         </div>
 
@@ -27,16 +27,22 @@
             <button onclick="joinRoom()">Gabung</button>
         </div>
 
-        <div id="adminRoom" class="hidden">
-            <h2>Room Admin</h2>
-            <div id="participantsList"></div>
-            <textarea id="argument" placeholder="Tulis argumen..."></textarea>
-            <select id="logicType">
-                <option value="AND">Konjungsi (AND)</option>
-                <option value="OR">Disjungsi (OR)</option>
-            </select>
-            <button onclick="sendArgument()">Kirim Argumen</button>
-            <button onclick="showResults()">Tampilkan Hasil</button>
+        <div id="roomArea" class="hidden">
+            <h2 id="roomInfo"></h2>
+            <div id="participantsList">
+            </div>
+
+            <div id="adminRoom" class="hidden">
+                <h2>Room Admin</h2>
+                <div id="participantsList"></div>
+                <textarea id="argument" placeholder="Tulis argumen..."></textarea>
+                <select id="logicType">
+                    <option value="AND">Konjungsi (AND)</option>
+                    <option value="OR">Disjungsi (OR)</option>
+                </select>
+                <button onclick="sendArgument()">Kirim Argumen</button>
+                <button onclick="showResults()">Tampilkan Hasil</button>
+            </div>
         </div>
 
         <div id="participantRoom" class="hidden">

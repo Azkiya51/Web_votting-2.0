@@ -9,12 +9,12 @@ function showJoin() {
     document.getElementById('joinRoomDiv').style.display = 'block';
 }
 
-function createRoom() {
+function createRoomdiv() {
     const roomName = document.getElementById('roomName').value;
     socket.emit('createRoom', roomName);
 }
 
-function joinRoom() {
+function joinRoomdiv() {
     currentRoomId = document.getElementById('roomId').value;
     participantName = document.getElementById('participantName').value;
     socket.emit('joinRoom', { roomId: currentRoomId, name: participantName });
