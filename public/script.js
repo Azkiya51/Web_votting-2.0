@@ -61,13 +61,15 @@ socket.on('participantsUpdate', (participants) => {
 });
 
 socket.on('newArgument', ({ argument, logicType }) => {
+    const safeArg = encodeURIComponent(argument); 
     const div = document.getElementById('argumentDisplay');
     div.innerHTML = `
         <p><strong>Argumen:</strong> ${argument} <em>(${logicType})</em></p>
-        <button onclick="vote('agree', '${argument}')">✅ Setuju</button>
-        <button onclick="vote('disagree', '${argument}')">❌ Tidak Setuju</button>
+        <button onclick="vote('agree', '${safeArg}')">✅ Setuju</button>
+        <button onclick="vote('disagree', '${safeArg}')">❌ Tidak Setuju</button>
     `;
 });
+
 
 socket.on('voteUpdate', (voteData) => {
     const total = voteData.agree + voteData.disagree;
