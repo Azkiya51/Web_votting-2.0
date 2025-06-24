@@ -17,17 +17,16 @@ body {
     align-items: center;
     max-width: 600px;
     text-align: center;
-    color: aliceblue;
-    align-items: center;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.85); /* Putih elegan semi-transparan */
+    color: #222; /* Warna teks gelap agar kontras */
     margin: auto;
     padding: 40px;
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Border halus */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25); /* Efek kedalaman */
     line-height: 1.6;
 }
+
 
 .hidden {
     display: none;
