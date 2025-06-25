@@ -3,10 +3,13 @@ let currentRoomId = '';
 let participantName = '';
 
 function showCreate() {
-    document.getElementById('createRoomDiv').style.display = 'block';
+    document.getElementById('home').classList.add('hidden');
+    document.getElementById('createRoom').classList.remove('hidden');
 }
+
 function showJoin() {
-    document.getElementById('joinRoomDiv').style.display = 'block';
+    document.getElementById('home').classList.add('hidden');
+    document.getElementById('joinRoom').classList.remove('hidden');
 }
 
 function createRoom() {
@@ -27,17 +30,28 @@ function sendArgument() {
     document.getElementById('argument').value = '';
 }
 
+// Voting (peserta)
+function vote(choice, argument) {
+    socket.emit('vote', { roomId: currentRoomId, argument, choice });
+}
+
+function showResults() {
+    document.getElementById('results').classList.remove('hidden');
+}
+
 socket.on('roomCreated', (roomId) => {
     alert(`Room berhasil dibuat dengan ID: ${roomId}`);
     currentRoomId = roomId;
-    document.getElementById('createRoomDiv').style.display = 'none';
-    document.getElementById('roomArea').style.display = 'block';
+    document.getElementById('createRoom').classList.add('hidden');
+    document.getElementById('roomArea').classList.remove('hidden');
+    document.getElementById('adminRoom').classList.remove('hidden');
     document.getElementById('roomInfo').innerText = `Room ID: ${roomId}`;
 });
 
 socket.on('joinedRoom', (roomData) => {
-    document.getElementById('joinRoomDiv').style.display = 'none';
-    document.getElementById('roomArea').style.display = 'block';
+    document.getElementById('joinRoom').classList.add('hidden');
+    document.getElementById('roomArea').classList.remove('hidden');
+    document.getElementById('participantRoom').classList.remove('hidden');
     document.getElementById('roomInfo').innerText = `Room ID: ${currentRoomId}`;
     document.getElementById('participantsList').innerText = `Peserta: ${roomData.participants.join(', ')}`;
 });
@@ -47,22 +61,24 @@ socket.on('participantsUpdate', (participants) => {
 });
 
 socket.on('newArgument', ({ argument, logicType }) => {
-    const div = document.getElementById('argumenArea');
+    const safeArg = encodeURIComponent(argument); 
+    const div = document.getElementById('argumentDisplay');
     div.innerHTML = `
-        <p>Argumen: ${argument} (${logicType})</p>
-        <button onclick="vote('agree', '${argument}')">Setuju</button>
-        <button onclick="vote('disagree', '${argument}')">Tidak Setuju</button>
+        <p><strong>Argumen:</strong> ${argument} <em>(${logicType})</em></p>
+        <button onclick="vote('agree', '${safeArg}')">✅ Setuju</button>
+        <button onclick="vote('disagree', '${safeArg}')">❌ Tidak Setuju</button>
     `;
 });
 
-function vote(choice, argument) {
-    socket.emit('vote', { roomId: currentRoomId, argument, choice });
-}
 
 socket.on('voteUpdate', (voteData) => {
     const total = voteData.agree + voteData.disagree;
     const agreePct = ((voteData.agree / total) * 100).toFixed(2);
-    document.getElementById('argumenArea').innerHTML += `<p>✅ Setuju: ${agreePct}%</p>`;
+    const disagreePct = (100 - agreePct).toFixed(2);
+    document.getElementById('resultsDisplay').innerHTML = `
+        <p>✅ Setuju: ${agreePct}%</p>
+        <p>❌ Tidak Setuju: ${disagreePct}%</p>
+    `;
 });
 
 socket.on('errorMsg', (msg) => {
